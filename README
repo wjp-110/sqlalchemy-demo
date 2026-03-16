@@ -1,0 +1,45 @@
+### 创建迁移仓库
+```shell
+alembic init alembic --template async
+```
+
+### 修改alembic.ini
+```
+# 注释sqlalchemy.url
+# sqlalchemy.url =
+```
+
+### 修改env.py
+```python
+from models import Base
+import settings
+
+config = context.config
+
+# 添加连接数据库的配置
+database_url = settings.DB_URI
+if database_url is None:
+    raise ValueError("DB_URI没有设置！")
+config.set_main_option("sqlalchemy.url", database_url)
+
+# Interpret the config file for Python logging.
+# This line sets up loggers basically.
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
+
+# add your model's MetaData object here
+# for 'autogenerate' support
+# from myapp import mymodel
+# target_metadata = mymodel.Base.metadata
+target_metadata = Base.metadata
+
+```
+
+### 生成迁移脚本
+``` alembic revision --autogenerate -m "修改的内容" ```
+
+### 执行迁移脚本
+``` alembic upgrade head ```
+
+### 如果想要回到上一次的版本，那么可以使用以下命令来实现：
+``` alembic downgrade ```
