@@ -8,4 +8,21 @@ Accept: application/json
 GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 
-###
+### 新增用户
+POST http://127.0.0.1:8000/article/add
+Content-Type: application/json
+
+{
+    "email": "xxxx@163.com",
+    "username": "用户名",
+    "password": "sdadsdasdasdasd",
+    "mobile": "12345678901"
+}
+
+### 获取用户列表
+GET http://127.0.0.1:8000/select/1
+Accept: application/json
+
+
+
+
